@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+
+@model Library.ViewModels.Models.LoginViewModel
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container col-sm-2 center-block">
+        @using (Html.BeginForm())
+    {
+            <br/>
+            <h4 class="form-signin-heading text-center">Please Login</h4>
+            <br />
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true)
+
+            <label for="Email" class="sr-only">Email address</label>
+            @Html.EditorFor(x => x.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email address" } })
+            @Html.ValidationMessageFor(x => x.Email)
+            <br />
+            <label for="Password" class="sr-only">Password</label>
+            @Html.EditorFor(x => x.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+            @Html.ValidationMessageFor(x => x.Password)
+            <br />
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+
+            }
+            <br />
+            <div class="container col-sm-4 center-block">
+                @Html.ActionLink("Register", "Register", "Account", new { htmlAttributes = new { @class = "btn btn-lg btn-primary btn-block" } })
+            </div>
+    </div>
+</body>
+</html>

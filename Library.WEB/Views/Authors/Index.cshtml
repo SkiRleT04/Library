@@ -1,0 +1,16 @@
+﻿@{ 
+    ViewBag.CurrentPage = "Authors";
+}
+
+<div id="grid"></div>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    @Scripts.Render("~/Scripts/App/Authors/admin-author.js")
+}
+else
+{
+    @Scripts.Render("~/Scripts/App/Authors/author.js")
+}
+
+@Html.Partial("_File", "Authors")

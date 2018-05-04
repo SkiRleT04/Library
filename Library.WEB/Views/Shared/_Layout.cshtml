@@ -1,0 +1,90 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="~/favicon.ico">
+    <title>@ViewBag.Title</title>
+
+
+    @Scripts.Render("~/bundles/custom")
+
+
+
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Kendo/styles")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Kendo")
+
+
+
+</head>
+<body>
+    <div class="container">
+        <header class="masthead">
+            <h3 class="text-muted">Library</h3>
+            <nav class="navbar navbar-expand-md navbar-light bg-light rounded mb-3">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav text-md-center nav-justified w-100">
+                        <li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link", title = "Home" })</li>
+                        <li>@Html.ActionLink("Books", "Index", "Books", null, new { @class = "nav-link", title = "Books" })</li>
+                        <li>@Html.ActionLink("Magazines", "Index", "Magazines", null, new { @class = "nav-link", title = "Magazines" })</li>
+                        <li>@Html.ActionLink("Brochures", "Index", "Brochures", null, new { @class = "nav-link", title = "Brochures" })</li>
+                        <li>@Html.ActionLink("Public houses", "Index", "PublicHouses", null, new { @class = "nav-link", title = "PublicHouses" })</li>
+                        <li>@Html.ActionLink("Authors", "Index", "Authors", null, new { @class = "nav-link", title = "Authors" })</li>
+
+
+
+
+                        <li class="nav-link">@(User.Identity.IsAuthenticated ? "Hello," + User.Identity.Name : "")</li>
+
+
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("Logout", "LogOut", "Account", null, new { @class = "nav-link", title = "Admin" })</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Login", "Login", "Account", null, new { @class = "nav-link", title = "Account" })</li>
+                            <li>@Html.ActionLink("Register", "Register", "Account", null, new { @class = "nav-link", title = "Account" })</li>
+                        }
+
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <main role="main">
+            @RenderBody()
+        </main>
+        <footer class="footer">
+            <p>&copy; Company 2018</p>
+        </footer>
+    </div>
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+<script type="text/javascript">
+    $(function () {
+        $('.date-picker').datepicker();
+    })
+</script>
+
+@if (!string.IsNullOrEmpty(ViewBag.CurrentPage))
+{
+    <script type="text/javascript">
+        $(function () {
+            $("a[title=@ViewBag.CurrentPage]").addClass("active");
+        });
+    </script>
+}
+

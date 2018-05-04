@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.CurrentPage = "Brochures";
+}
+
+
+
+<div id="grid"></div>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    @Scripts.Render("~/Scripts/App/Brochures/admin-brochure.js")
+}
+else
+{
+    @Scripts.Render("~/Scripts/App/Brochures/brochure.js")
+}
+
+
+<script>
+
+</script>
+@Html.Partial("_File", "Brochures")

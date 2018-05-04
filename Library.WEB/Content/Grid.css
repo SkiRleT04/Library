@@ -1,0 +1,11 @@
+﻿body {
+}
+
+a.grid {
+    color: white;
+}
+
+    a.grid:hover {
+        color: wheat;
+        text-decoration: none;
+    }

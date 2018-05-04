@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.CurrentPage = "Magazines";
+}
+
+
+
+<div id="grid"></div>
+
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    @Scripts.Render("~/Scripts/App/Magazines/admin-magazine.js")
+}
+else
+{
+    @Scripts.Render("~/Scripts/App/Magazines/magazine.js")
+}
+
+@Html.Partial("_File", "Magazines")

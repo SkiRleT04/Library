@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.CurrentPage = "PublicHouses";
+}
+
+
+
+<div id="grid"></div>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    @Scripts.Render("~/Scripts/App/PublicHouses/admin-publichouse.js")
+}
+else
+{
+    @Scripts.Render("~/Scripts/App/PublicHouses/publichouse.js")
+}
+
+@Html.Partial("_File", "PublicHouses")

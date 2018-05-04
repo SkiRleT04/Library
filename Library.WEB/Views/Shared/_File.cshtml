@@ -1,0 +1,99 @@
+﻿@model string
+
+
+
+<input type="file" id="uploadFile" name="uploadFile" hidden>
+<script>
+
+
+
+    var CONTROLLER = "@Model";
+
+    var grid = $("#grid").data("kendoGrid");
+
+    $("#uploadFile").change(function () {
+        event.stopPropagation();
+        event.preventDefault();
+        var data = new FormData();
+        data.append('uploadFile', $("#uploadFile")[0].files[0]);
+        $.ajax({
+            url: "/"+CONTROLLER +"/LoadFromFile",
+            type: 'POST',
+            data: data,
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.Status == "Bad") {
+                    alert("File invalid");
+                }
+                else {
+
+                    HideToolBarButtons("SaveToXml");
+                    HideToolBarButtons("SaveToJson");
+                    HideToolBarButtons("add");
+                    HideToolBarButtons("LoadFromFile");
+                    grid.hideColumn("Actions");
+
+                    var dataSource = new kendo.data.DataSource({
+                        data: response
+                    });
+                    console.log(dataSource);
+                    grid.setDataSource(dataSource);
+
+                }
+            },
+            error: function (response) {
+                alert("request error");
+            }
+        });
+    });
+
+    $(".k-grid-SaveToJson", "#grid").bind("click", function (ev) {
+        SaveSelecteRecords("SaveToJson", selectedItems);
+    });
+
+    $(".k-grid-SaveToXml", "#grid").bind("click", function (ev) {
+        SaveSelecteRecords("SaveToXml", selectedItems);
+    });
+
+    $(".k-grid-LoadFromFile", "#grid").bind("click", function (event) {
+
+        $("#uploadFile").click();
+    });
+
+
+    $(".k-grid-Refresh", "#grid").bind("click", function (event) {
+
+        location.reload();
+    });
+
+    function SaveSelecteRecords(action, listIdSelected) {
+        if (selectedItems.length == 0) {
+            alert("Select an records");
+            return;
+        }
+
+
+        var link = "/" + CONTROLLER + "/" + action + "?data=" + listIdSelected.join();
+        console.log(link);
+        $.get(link, function (data) {
+            console.log(data);
+            if (data.Status == "Bad") {
+                alert(data.Message);
+                console.log(link);
+            }
+            else {
+
+                window.location = link;
+            }
+        });
+    }
+
+    function HideToolBarButtons(btnName)
+    {
+        $("#grid .k-grid-" + btnName).hide();
+    }
+
+</script>
